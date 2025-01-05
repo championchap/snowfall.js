@@ -64,7 +64,6 @@ export function screenWrap(
   gravity: {
     angle: number
     strength: number
-    respectOrientation: boolean
   }
 ) {
   const prevPos = vec2.clone(snowflake.position)
@@ -95,21 +94,19 @@ export function screenWrap(
     moved = true
   }
 
-  if (moved) {
-    const currentPos = vec2.clone(snowflake.position)
-    currentPos.subtract(prevPos)
+  snowflake.renderedSize = snowflake.size
+  // if (moved) {
+  //   const currentPos = vec2.clone(snowflake.position)
+  //   currentPos.subtract(prevPos)
 
-    const dotProduct = currentPos.dot(upDir)
+  //   const dotProduct = currentPos.dot(upDir)
 
-    if (dotProduct > 0) {
-      // increase the size of the snowflake
-      snowflake.renderedSize = lerp(
-        snowflake.renderedSize,
-        snowflake.size,
-        0.25
-      )
-
-      snowflake.colour = 'red'
-    }
-  }
+  //   if (dotProduct > 0) {
+  //     snowflake.renderedSize = lerp(
+  //       snowflake.renderedSize,
+  //       snowflake.size,
+  //       0.25
+  //     )
+  //   }
+  // }
 }

@@ -12,5 +12,4 @@ export declare function fadeIn(snowflake: Snowflake): void;
 export declare function screenWrap(snowflake: Snowflake, width: number, height: number, gravity: {
     angle: number;
     strength: number;
-    respectOrientation: boolean;
 }): void;

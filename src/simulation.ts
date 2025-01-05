@@ -12,32 +12,36 @@ export function create(): Simulation {
 
   const simulation = game.create()
 
-  function start(userConfig: UserConfig = {}) {
+  function commonStart(userConfig: UserConfig) {
     config = merge(userConfig)
+    makeLayers()
+  }
 
+  function makeLayers() {
+    layers = []
     config.layers.forEach(layer => {
       const strength = seededRandom(
-        layer.wind.strength + layer.wind.in.additionalStrength.min,
-        layer.wind.strength + layer.wind.in.additionalStrength.max
+        layer.wind.strength + layer.wind.gusts.in.additionalStrength.min,
+        layer.wind.strength + layer.wind.gusts.in.additionalStrength.max
       )
 
       const durationIn = seededRandom(
-        layer.wind.in.delay.min,
-        layer.wind.in.delay.max
+        layer.wind.gusts.in.delay.min,
+        layer.wind.gusts.in.delay.max
       )
       const windDelayIn = seededRandom(
-        layer.wind.in.delay.min,
-        layer.wind.in.delay.max
+        layer.wind.gusts.in.delay.min,
+        layer.wind.gusts.in.delay.max
       )
 
       const durationOut = seededRandom(
-        layer.wind.out.duration.min,
-        layer.wind.out.duration.max
+        layer.wind.gusts.out.duration.min,
+        layer.wind.gusts.out.duration.max
       )
 
       const windDelayOut = seededRandom(
-        layer.wind.out.delay.min,
-        layer.wind.out.delay.max
+        layer.wind.gusts.out.delay.min,
+        layer.wind.gusts.out.delay.max
       )
 
       const changeChance = seededRandom()
@@ -57,6 +61,10 @@ export function create(): Simulation {
       layers.push(newLayer)
       newLayer.start()
     })
+  }
+
+  function start(userConfig: UserConfig = {}) {
+    commonStart(userConfig)
 
     if (!config.attachTo) {
       console.error(
@@ -85,7 +93,7 @@ export function create(): Simulation {
   }
 
   function render(gfx: Graphics) {
-    gfx.clear(config.background)
+    gfx.clear()
     layers.forEach(layer => {
       layer.render(gfx)
     })
@@ -97,16 +105,22 @@ export function create(): Simulation {
       layer.height = config.attachTo.offsetHeight
       layer.restart()
     })
+
+    restart()
   }
 
-  function restart() {
-    layers.forEach(layer => {
-      layer.restart()
-    })
-  }
+  function restart(newConfig?: Config) {
+    simulation.setSize(
+      config.attachTo.offsetWidth,
+      config.attachTo.offsetHeight
+    )
 
-  function setBackground(col: string) {
-    config.background = col
+    if (newConfig) {
+      config = newConfig
+      makeLayers()
+    } else {
+      layers.forEach(layer => layer.restart())
+    }
   }
 
   function setColour(col: string, layer: number) {
@@ -115,14 +129,6 @@ export function create(): Simulation {
 
   function setDensity(den: number, layer: number) {
     layers[layer]?.setDensity(den)
-  }
-
-  function setRespectOrientation(val: boolean, layer: number) {
-    layers[layer]?.setRespectOrientation(val)
-  }
-
-  function setFade(val: boolean, layer: number) {
-    layers[layer]?.setFade(val)
   }
 
   function setAmplitude(num: number, layer: number) {
@@ -213,13 +219,18 @@ export function create(): Simulation {
     layers[layer]?.setWindOutChangeChance(chance)
   }
 
+  function setSizeMin(min: number, layer: number) {
+    layers[layer]?.setSizeMin(min)
+  }
+
+  function setSizeMax(max: number, layer: number) {
+    layers[layer]?.setSizeMax(max)
+  }
+
   return {
     start,
     setAmplitude,
-    setBackground,
     setDensity,
-    setRespectOrientation,
-    setFade,
     setFrequency,
     setGravity,
     setGravityAngle,
@@ -241,6 +252,12 @@ export function create(): Simulation {
     setWindOutDelayMin,
     setWindOutDelayMax,
     setWindOutChangeChance,
-    setColour
+    setColour,
+    setSizeMin,
+    setSizeMax,
+    restart: (userConfig: UserConfig) => {
+      config = merge(userConfig)
+      restart(config)
+    }
   }
 }

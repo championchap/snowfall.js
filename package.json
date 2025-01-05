@@ -4,6 +4,10 @@
   "description": "Nice snow in a JS Canvas.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "files": [
+    "dist/**/*"
+  ],
   "repository": "git@github.com:erikwatson/snowfall.js.git",
   "author": "Erik Watson <erik@erikwatson.me>",
   "license": "MIT",
@@ -20,26 +24,33 @@
     "build:docs": "pnpm exec typedoc --out docs src/snowfall.ts --readme README.md",
     "watch": "pnpm exec webpack --config ./webpack.config.js --watch",
     "pub": "pnpm run build:all && npm publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/plugin-external-helpers": "^7.24.7",
     "@babel/preset-env": "^7.25.2",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.2",
     "@types/seedrandom": "^3.0.8",
     "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "jsdoc": "^4.0.3",
     "prettier": "^3.2.5",
     "pretty-quick": "^4.0.0",
+    "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",
+    "ts-node-dev": "^2.0.0",
     "typedoc": "^0.26.3",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.4",
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
-    "@erikwatson/bramble": "^0.6.0",
+    "@erikwatson/bramble": "file:../Bramble",
     "@tweenjs/tween.js": "^23.1.2",
     "seedrandom": "^3.0.5"
   }

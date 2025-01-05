@@ -12,5 +12,4 @@ export declare function makeSnowflakes(num: number, config: ConfigLayer, width: 
     frequency: number;
     random: number;
     time: number;
-    colour: string;
 }[];

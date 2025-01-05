@@ -58,23 +58,21 @@ export function makeSnowflakes(
   height: number
 ) {
   const result = Array.from({ length: num }, () => {
-    const size = 3 + random() * 5
-    const renderedSize = config.fadeIn === true ? 0 : size
-
     const posX = random(width)
     const posY = random(height)
     const position = vec2.create(posX, posY)
 
     return {
       position,
-      size,
-      renderedSize,
+      // size: 3 + random() * 5,
+      // size: 1 + random() * 2,
+      size: config.size.min + random() * (config.size.max - config.size.min),
+      renderedSize: 0,
       noise: random(10), // Random value, just to add some uncertainty
       amplitude: random(config.wave.amplitude),
       frequency: random(config.wave.frequency),
       random: random(),
-      time: 0,
-      colour: 'white'
+      time: 0
     }
   })
 

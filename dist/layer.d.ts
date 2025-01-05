@@ -14,12 +14,10 @@ export declare class Layer implements SnowfallLayer {
     fadeWindOut: TWEEN.Tween<ConfigLayer>;
     constructor(config: ConfigLayer, width: number, height: number, strength: number, durationIn: number, windDelayIn: number, durationOut: number, windDelayOut: number, changeChance: number);
     setAmplitude(num: number): void;
-    setFade(val: boolean): void;
     setFrequency(freq: number): void;
     setGravity(degrees: number, strength: number): void;
     setGravityAngle(degrees: number): void;
     setGravityStrength(strength: number): void;
-    setRespectOrientation(val: boolean): void;
     setPaused(pause: boolean): void;
     setWind(degrees: number, strength: number): void;
     setWindAngle(degrees: number): void;
@@ -45,4 +43,6 @@ export declare class Layer implements SnowfallLayer {
     restart(): void;
     setDensity(density: number): void;
     setColour(colour: string): void;
+    setSizeMin(min: number): void;
+    setSizeMax(max: number): void;
 }

@@ -1,11 +1,13 @@
-import { BaseConfig, Config, ConfigLayer, UserConfig } from './types';
+import { BaseConfig, CompleteUserConfig, Config, ConfigLayer } from './types';
 export declare const DEFAULT_CONTAINER_ID = "snowfall";
-export declare const DEFAULT_CONTAINER: HTMLElement;
-export declare const DEFAULT_BACKGROUND = "#0d0014";
-export declare const DEFAULT_PRIMARY_COLOR = "#8d90b7";
-export declare const DEFAULT_SECONDARY_COLOR = "#ffffff";
+export declare const DEFAULT_SNOW_COLOR = "#ffffff";
 export declare const DEFAULT_DENSITY = 200;
-export declare const DEFAULT_FADE_IN = true;
+export declare const DEFAULT_SIZE_MIN = 1;
+export declare const DEFAULT_SIZE_MAX = 3;
+export declare const DEFAULT_SIZE: {
+    min: number;
+    max: number;
+};
 export declare const DEFAULT_AMPLITUDE = 1;
 export declare const DEFAULT_FREQUENCY = 0.02;
 export declare const DEFAULT_WAVE: {
@@ -14,15 +16,12 @@ export declare const DEFAULT_WAVE: {
 };
 export declare const DEFAULT_GRAVITY_ANGLE = 90;
 export declare const DEFAULT_GRAVITY_STRENGTH = 0.7;
-export declare const DEFAULT_RESPECT_ORIENTATION = false;
 export declare const DEFAULT_GRAVITY: {
     angle: number;
     strength: number;
-    respectOrientation: boolean;
 };
 export declare const DEFAULT_WIND_ANGLE = 0;
 export declare const DEFAULT_WIND_STRENGTH = 0;
-export declare const DEFAULT_WIND_GUSTS = true;
 export declare const DEFAULT_WIND_IN_ADDITIONAL_STRENGTH_MIN = 1;
 export declare const DEFAULT_WIND_IN_ADDITIONAL_STRENGTH_MAX = 3;
 export declare const DEFAULT_WIND_IN_ADDITIONAL_STRENGTH: {
@@ -53,8 +52,9 @@ export declare const DEFAULT_WIND_OUT_DURATION: {
     min: number;
     max: number;
 };
-export declare const DEFAULT_WIND_OUT_CHANGE_CHANCE = 0.25;
-export declare const DEFAULT_WIND_OUT: {
+export declare const DEFAULT_WIND_GUSTS_CHANGE_CHANCE = 0.25;
+export declare const DEFAULT_WIND_GUSTS_ACTIVE = true;
+export declare const DEFAULT_WIND_GUSTS_OUT: {
     duration: {
         min: number;
         max: number;
@@ -63,9 +63,8 @@ export declare const DEFAULT_WIND_OUT: {
         min: number;
         max: number;
     };
-    changeChance: number;
 };
-export declare const DEFAULT_WIND_IN: {
+export declare const DEFAULT_WIND_GUSTS_IN: {
     additionalStrength: {
         min: number;
         max: number;
@@ -79,10 +78,9 @@ export declare const DEFAULT_WIND_IN: {
         max: number;
     };
 };
-export declare const DEFAULT_WIND: {
-    angle: number;
-    strength: number;
-    gusts: boolean;
+export declare const DEFAULT_WIND_GUSTS: {
+    active: boolean;
+    changeChance: number;
     in: {
         additionalStrength: {
             min: number;
@@ -106,11 +104,42 @@ export declare const DEFAULT_WIND: {
             min: number;
             max: number;
         };
+    };
+};
+export declare const DEFAULT_WIND: {
+    angle: number;
+    strength: number;
+    gusts: {
+        active: boolean;
         changeChance: number;
+        in: {
+            additionalStrength: {
+                min: number;
+                max: number;
+            };
+            duration: {
+                min: number;
+                max: number;
+            };
+            delay: {
+                min: number;
+                max: number;
+            };
+        };
+        out: {
+            duration: {
+                min: number;
+                max: number;
+            };
+            delay: {
+                min: number;
+                max: number;
+            };
+        };
     };
 };
 export declare const DEFAULT_LAYER: ConfigLayer;
 export declare const DEFAULT_LAYERS: ConfigLayer[];
 export declare const DEFAULT_BASE_CONFIG: BaseConfig;
-export declare const DEFAULT_CONFIG: Config;
-export declare const DEFAULT_USER_CONFIG: UserConfig;
+export declare function getDefaultConfig(): Config;
+export declare const DEFAULT_USER_CONFIG: CompleteUserConfig;

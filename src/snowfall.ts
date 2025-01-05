@@ -23,6 +23,12 @@ export function start(config: UserConfig = {}) {
   }
 }
 
+export function restart(config: UserConfig = {}) {
+  if (simulation) {
+    simulation.restart(config)
+  }
+}
+
 /**
  * Starts the Snowfall simulation when today's date falls within the date range in the schedule.
  *
@@ -33,15 +39,6 @@ export function schedule(userSchedule: UserSchedule, config: UserConfig = {}) {
   if (withinSchedule(userSchedule)) {
     start(config)
   }
-}
-
-/**
- * Set the background colour
- *
- * @param {string} colour - The background colour of the Canvas
- */
-export function setBackground(colour: string) {
-  simulation.setBackground(colour)
 }
 
 /**
@@ -66,30 +63,6 @@ export function setColour(colour: string, layer: number) {
  */
 export function setDensity(density: number, layer: number) {
   simulation.setDensity(density, layer)
-}
-
-/**
- * Should the snowflakes grow in size from nothing until they reach their full
- * size? It happens pretty quickly.
- *
- * @param {boolean} value - Yes or no?
- * @param {number} layer - The layer to set the fade for
- */
-export function setRespectOrientation(value: boolean, layer: number) {
-  simulation.setRespectOrientation(value, layer)
-}
-
-/**
- * Should the snowflakes grow in size from nothing until they reach their full
- * size? It happens pretty quickly.
- *
- * Setting this restarts the simulation.
- *
- * @param {boolean} value - Yes or no?
- * @param {number} layer - The layer to set the fade for
- */
-export function setFade(value: boolean, layer: number) {
-  simulation.setFade(value, layer)
 }
 
 /**
@@ -323,9 +296,30 @@ export function setWindOutChangeChance(chance: number, layer: number) {
   simulation.setWindOutChangeChance(chance, layer)
 }
 
+/**
+ * Set the minimum size of the snowflakes.
+ *
+ * @param {number} min - The minimum size of the snowflakes.
+ * @param {number} layer - The layer to set the size min for
+ */
+export function setSizeMin(min: number, layer: number) {
+  simulation.setSizeMin(min, layer)
+}
+
+/**
+ * Set the maximum size of the snowflakes.
+ *
+ * @param {number} max - The maximum size of the snowflakes.
+ * @param {number} layer - The layer to set the size max for
+ */
+export function setSizeMax(max: number, layer: number) {
+  simulation.setSizeMax(max, layer)
+}
+
 // Exporting types for TypeDoc
-export type { UserConfig, UserSchedule } from './types'
+// export type { UserConfig, UserSchedule } from './types'
 
 // exporting the diff function for the editor
 export { diff } from './config'
 export * from './defaults'
+export { clone } from './utils'

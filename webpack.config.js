@@ -24,6 +24,12 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    alias: {
+      // '@erikwatson/bramble': path.resolve(
+      //   __dirname,
+      //   'node_modules/@erikwatson/bramble/dist'
+      // )
+    }
   }
 }
